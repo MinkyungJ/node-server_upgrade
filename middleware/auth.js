@@ -8,11 +8,11 @@ const secretKey = process.env.SECRETKEY;
 
 // 사용자 인증 미들웨어
 export const isAuth = async (req, res, next) => {
-  const { Authorization } = req.cookies;
-  const [authType, authToken] = (Authorization ?? "").split(" "); //?? 널병합 연산자 ?? 왼쪽이 비었거나 null 인경우 오른쪽으로 바꿔줌
+  const token = req.headers.cookie;
+  const authToken = token.split("20")[1];
 
   //쿠키가 존재하지않을때 대비
-  if (!authToken || authType !== "Bearer") {
+  if (!authToken) {
     res.status(401).send({
       errorMessage: "로그인 후 이용 가능한 기능입니다.",
     });
@@ -30,9 +30,7 @@ export const isAuth = async (req, res, next) => {
 
     //토큰의 아이디가 실제 db에 있는지 확인
     const decodedToken = jwt.decode(authToken);
-    const test = await User.findByPk(decodedToken.userId);
-    console.log(decodedToken);
-    console.log(test);
+    const test = await User.findById(decodedToken.userId);
     if (test == null) {
       return res
         .status(403)
