@@ -30,7 +30,6 @@ commentSchema.plugin(AutoIncrement, {
 useVirtualId(commentSchema);
 const Comment = mongoose.model("commentModel", commentSchema);
 
-//생성 하기
 export async function create(comment, userId, nickname) {
   return User.findById(userId).then(() =>
     new Comment({
@@ -42,17 +41,14 @@ export async function create(comment, userId, nickname) {
   );
 }
 
-//전부 찾기
 export async function getAll() {
   return Comment.find().sort({ createdAt: -1 });
 }
 
-//인덱스 찾기
 export async function getById(postId) {
   return Comment.find({ postId });
 }
 
-//수정하기
 export async function update(commentId, comment) {
   return Comment.updateOne(
     { commentId: commentId },
@@ -60,7 +56,6 @@ export async function update(commentId, comment) {
   );
 }
 
-//삭제하기
 export async function remove(commentId) {
   return Comment.deleteOne({ commentId: commentId });
 }

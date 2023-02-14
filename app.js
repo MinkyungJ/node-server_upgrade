@@ -9,13 +9,10 @@ dotenv.config();
 
 const app = express();
 
-//나머지 불러오기
 app.use(express.json());
 
-//서버,db연결
 db();
 
-//연결
 app.use("/posts", postRoute);
 app.use("/posts/:postId", commentRoute);
 app.use("/", userRoute);

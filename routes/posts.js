@@ -3,19 +3,14 @@ import * as postController from "../controller/posts.js";
 import { isAuth } from "../middleware/auth.js";
 const postRoute = express.Router();
 
-//게시글 작성
 postRoute.post("/", isAuth, postController.createPost);
 
-//게시글 조회
 postRoute.get("/", postController.getPost);
 
-//게시글 상세 조회
 postRoute.get("/:postId", postController.getDetailPost);
 
-//게시글 수정
 postRoute.put("/:postId", isAuth, postController.updatePost);
 
-// // 게시글 삭제
 postRoute.delete("/:postId", isAuth, postController.deletePost);
 
 export default postRoute;

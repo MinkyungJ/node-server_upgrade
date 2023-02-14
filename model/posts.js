@@ -31,17 +31,14 @@ postSchema.plugin(AutoIncrement, { id: "postId", inc_field: "postId" });
 useVirtualId(postSchema);
 const Post = mongoose.model("postModel", postSchema);
 
-//전부 찾기
 export async function getAll() {
   return Post.find().sort({ createdAt: -1 });
 }
 
-//인덱스 찾기
 export async function getById(postId) {
   return Post.find({ postId });
 }
 
-//생성 하기
 export async function create(title, content, userId, nickname) {
   return User.findById(userId).then(() =>
     new Post({
@@ -54,7 +51,6 @@ export async function create(title, content, userId, nickname) {
   );
 }
 
-//수정하기
 export async function update(postId, title, content) {
   return Post.updateOne(
     { postId: postId },
@@ -62,7 +58,6 @@ export async function update(postId, title, content) {
   );
 }
 
-//삭제하기
 export async function remove(postId) {
   return Post.deleteOne({ postId: postId });
 }

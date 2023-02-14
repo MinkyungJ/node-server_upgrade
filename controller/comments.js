@@ -3,14 +3,11 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-//댓글 작성
 export async function createComment(req, res) {
-  //토큰
+  const { comment } = req.body;
   const token = req.headers.cookie;
   const authToken = token.split("20")[1];
   const decodedToken = jwt.decode(authToken);
-  //게시글
-  const { comment } = req.body;
   await commentRepository.create(
     comment,
     decodedToken.userId,
@@ -19,7 +16,6 @@ export async function createComment(req, res) {
   res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
 }
 
-//댓글 조회
 export async function getComment(req, res) {
   const data = await commentRepository.getAll();
   const arr = [];
@@ -37,7 +33,6 @@ export async function getComment(req, res) {
   res.status(200).json({ comments: arr });
 }
 
-//댓글 수정
 export async function updateComment(req, res) {
   const { commentId } = req.params;
   const { comment } = req.body;
@@ -45,7 +40,6 @@ export async function updateComment(req, res) {
   res.json({ message: "게시글을 수정하였습니다." });
 }
 
-//댓글 삭제
 export async function deleteComment(req, res) {
   const { commentId } = req.params;
   await commentRepository.remove(commentId);

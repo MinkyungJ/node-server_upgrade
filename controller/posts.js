@@ -3,14 +3,12 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-//게시글 작성
 export async function createPost(req, res) {
-  //토큰
+  const { title, content } = req.body;
   const token = req.headers.cookie;
   const authToken = token.split("20")[1];
   const decodedToken = jwt.decode(authToken);
-  //게시글
-  const { title, content } = req.body;
+
   await postRepository.create(
     title,
     content,
@@ -20,7 +18,6 @@ export async function createPost(req, res) {
   res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
 }
 
-//게시글 조회
 export async function getPost(req, res) {
   const data = await postRepository.getAll();
   const arr = [];
@@ -39,7 +36,6 @@ export async function getPost(req, res) {
   res.status(200).json({ posts: arr });
 }
 
-//게시글 상세조회
 export async function getDetailPost(req, res) {
   const { postId } = req.params;
   const detailPost = await postRepository.getById(parseInt(postId));
@@ -55,7 +51,6 @@ export async function getDetailPost(req, res) {
   res.json({ data: temp });
 }
 
-//게시글 수정
 export async function updatePost(req, res) {
   const { postId } = req.params;
   const { title, content } = req.body;
@@ -63,7 +58,6 @@ export async function updatePost(req, res) {
   res.json({ message: "게시글을 수정하였습니다." });
 }
 
-//게시글 삭제
 export async function deletePost(req, res) {
   const { postId } = req.params;
   await postRepository.remove(postId);
