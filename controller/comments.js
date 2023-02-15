@@ -13,7 +13,7 @@ export async function createComment(req, res) {
     decodedToken.userId,
     decodedToken.nickname
   );
-  res.status(201).json({ message: "게시글 작성에 성공하였습니다." });
+  res.status(201).json({ message: "댓글 작성에 성공하였습니다." });
 }
 
 export async function getComment(req, res) {
@@ -37,11 +37,11 @@ export async function updateComment(req, res) {
   const { commentId } = req.params;
   const { comment } = req.body;
   await commentRepository.update(commentId, comment);
-  res.json({ message: "게시글을 수정하였습니다." });
+  res.json({ message: "댓글을 수정하였습니다." });
 }
 
 export async function deleteComment(req, res) {
   const { commentId } = req.params;
   await commentRepository.remove(commentId);
-  res.json({ message: "게시글을 삭제하였습니다." });
+  res.json({ message: "댓글을 삭제하였습니다." });
 }
