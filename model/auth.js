@@ -31,8 +31,8 @@ export async function findByUsername(nickname) {
   return User.findOne({ nickname });
 }
 
-export async function findById(userid) {
-  return User.find({ userid });
+export async function findById(userId) {
+  return User.find({ userId });
 }
 
 export async function createUser(user) {
