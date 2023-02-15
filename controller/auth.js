@@ -5,7 +5,7 @@ dotenv.config();
 
 export async function signup(req, res) {
   const { nickname, password, confirm } = req.body;
-  const rex = /^[A-za-z0-9]/g;
+  const rex = /^[a-zA-Z0-9]{4,20}$/;
   const nicknameCheck = rex.test(nickname);
   if (!nicknameCheck) {
     return res
