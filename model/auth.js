@@ -8,15 +8,15 @@ const userSchema = new mongoose.Schema(
   {
     userId: {
       type: Number,
-      requierd: true,
+      require: true,
     },
     nickname: {
       type: String,
-      requierd: true,
+      require: true,
     },
     password: {
       type: String,
-      requierd: true,
+      require: true,
     },
   },
   { timestamps: false }

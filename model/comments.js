@@ -10,11 +10,11 @@ const commentSchema = new mongoose.Schema(
   {
     commentId: {
       type: Number,
-      requierd: true,
+      require: true,
     },
     comment: {
       type: String,
-      requierd: true,
+      require: true,
     },
     userId: { type: Schema.Types.Number, ref: "userModel" },
     nickname: { type: Schema.Types.String, ref: "userModel" },
